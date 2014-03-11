@@ -7,76 +7,34 @@
   'es6'
 ]
 'firstLineMatch': '^#!.*\\bnode'
-'keyEquivalent': '^~J'
 'name': 'JavaScript'
+'injections':
+  'source.js - meta.ternary-if.js - string - comment':
+    'patterns': [
+      {
+        'match': '\\b[a-zA-Z_$][\\w$]*(?=\\s*:\\s*function\\b)'
+        'name': 'entity.name.function.js'
+      }
+      {
+        'match': '\\b[a-zA-Z_$][\\w_$]*(?=\\s*:)'
+        'name': 'entity.name.attribute-name.js'
+      }
+    ]
 'patterns': [
   {
-    'captures':
-      '1':
-        'name': 'support.class.js'
-      '2':
-        'name': 'support.constant.js'
-      '3':
-        'name': 'keyword.operator.js'
-    'comment': 'match stuff like: Sound.prototype = { … } when extending an object'
-    'match': '([a-zA-Z_?.$][\\w?.$]*)\\.(prototype)\\s*(=)\\s*'
-    'name': 'meta.class.js'
-  }
-  {
-    'begin': '([a-zA-Z_?.$][\\w?.$]*)\\.(prototype)\\.([a-zA-Z_?.$][\\w?.$]*)\\s*(=)\\s*(function)?\\s*(\\()'
+    'begin': '(?:\\b([a-zA-Z_$][\\w$]*)\\s*(=)\\s*)?\\b(function)(?:\\s+([a-zA-Z_$][\\w$]*))?\\s*(\\()'
     'beginCaptures':
       '1':
-        'name': 'support.class.js'
+        'name': 'meta.function.variable.js'
       '2':
-        'name': 'support.constant.js'
-      '3':
-        'name': 'entity.name.function.js'
-      '4':
         'name': 'keyword.operator.js'
-      '5':
+      '3':
         'name': 'storage.type.function.js'
-      '6':
-        'name': 'punctuation.definition.parameters.begin.js'
-    'comment': 'match stuff like: Sound.prototype.play = function() { … }'
-    'end': '(\\))'
-    'endCaptures':
-      '1':
-        'name': 'punctuation.definition.parameters.end.js'
-    'name': 'meta.function.prototype.js'
-    'patterns': [
-      {
-        'include': '#function-params'
-      }
-    ]
-  }
-  {
-    'captures':
-      '1':
-        'name': 'support.class.js'
-      '2':
-        'name': 'support.constant.js'
-      '3':
-        'name': 'entity.name.function.js'
       '4':
-        'name': 'keyword.operator.js'
-    'comment': 'match stuff like: Sound.prototype.play = myfunc'
-    'match': '([a-zA-Z_?.$][\\w?.$]*)\\.(prototype)\\.([a-zA-Z_?.$][\\w?.$]*)\\s*(=)\\s*'
-    'name': 'meta.function.js'
-  }
-  {
-    'begin': '([a-zA-Z_?.$][\\w?.$]*)\\.([a-zA-Z_?.$][\\w?.$]*)\\s*(=)\\s*(function)\\s*(\\()'
-    'beginCaptures':
-      '1':
-        'name': 'support.class.js'
-      '2':
         'name': 'entity.name.function.js'
-      '3':
-        'name': 'keyword.operator.js'
-      '4':
-        'name': 'storage.type.function.js'
       '5':
         'name': 'punctuation.definition.parameters.begin.js'
-    'comment': 'match stuff like: Sound.play = function() { … }'
+    'comment': 'match function, optional function name and optional function arguments'
     'end': '(\\))'
     'endCaptures':
       '1':
@@ -87,123 +45,6 @@
         'include': '#function-params'
       }
     ]
-  }
-  {
-    'begin': '([a-zA-Z_?$][\\w?$]*)\\s*(=)\\s*(function)\\s*(\\()'
-    'beginCaptures':
-      '1':
-        'name': 'entity.name.function.js'
-      '2':
-        'name': 'keyword.operator.js'
-      '3':
-        'name': 'storage.type.function.js'
-      '4':
-        'name': 'punctuation.definition.parameters.begin.js'
-    'comment': 'match stuff like: play = function() { … }'
-    'end': '(\\))'
-    'endCaptures':
-      '1':
-        'name': 'punctuation.definition.parameters.end.js'
-    'name': 'meta.function.js'
-    'patterns': [
-      {
-        'include': '#function-params'
-      }
-    ]
-  }
-  {
-    'begin': '\\b(function)\\s+([a-zA-Z_$]\\w*)?\\s*(\\()'
-    'beginCaptures':
-      '1':
-        'name': 'storage.type.function.js'
-      '2':
-        'name': 'entity.name.function.js'
-      '3':
-        'name': 'punctuation.definition.parameters.begin.js'
-    'comment': 'match regular function like: function myFunc(arg) { … }'
-    'end': '(\\))'
-    'endCaptures':
-      '1':
-        'name': 'punctuation.definition.parameters.end.js'
-    'name': 'meta.function.js'
-    'patterns': [
-      {
-        'include': '#function-params'
-      }
-    ]
-  }
-  {
-    'begin': '\\b([a-zA-Z_?.$][\\w?.$]*)\\s*:\\s*\\b(function)?\\s*(\\()'
-    'beginCaptures':
-      '1':
-        'name': 'entity.name.function.js'
-      '2':
-        'name': 'storage.type.function.js'
-      '3':
-        'name': 'punctuation.definition.parameters.begin.js'
-    'comment': 'match stuff like: foobar: function() { … }'
-    'end': '(\\))'
-    'endCaptures':
-      '1':
-        'name': 'punctuation.definition.parameters.end.js'
-    'name': 'meta.function.json.js'
-    'patterns': [
-      {
-        'include': '#function-params'
-      }
-    ]
-  }
-  {
-    'begin': '(?:((\')(.*?)(\'))|((")(.*?)(")))\\s*:\\s*\\b(function)?\\s*(\\()'
-    'beginCaptures':
-      '1':
-        'name': 'string.quoted.single.js'
-      '2':
-        'name': 'punctuation.definition.string.begin.js'
-      '3':
-        'name': 'entity.name.function.js'
-      '4':
-        'name': 'punctuation.definition.string.end.js'
-      '5':
-        'name': 'string.quoted.double.js'
-      '6':
-        'name': 'punctuation.definition.string.begin.js'
-      '7':
-        'name': 'entity.name.function.js'
-      '8':
-        'name': 'punctuation.definition.string.end.js'
-      '9':
-        'name': 'entity.name.function.js'
-      '10':
-        'name': 'punctuation.definition.parameters.begin.js'
-    'comment': 'Attempt to match "foo": function'
-    'end': '(\\))'
-    'endCaptures':
-      '1':
-        'name': 'punctuation.definition.parameters.end.js'
-    'name': 'meta.function.json.js'
-    'patterns': [
-      {
-        'include': '#function-params'
-      }
-    ]
-  }
-  {
-    'captures':
-      '1':
-        'name': 'keyword.operator.new.js'
-      '2':
-        'name': 'entity.name.type.instance.js'
-    'match': '(new)\\s+(\\w+(?:\\.\\w*)?)'
-    'name': 'meta.class.instance.constructor'
-  }
-  {
-    'match': '\\b(console)\\b'
-    'name': 'entity.name.type.object.js.firebug'
-  }
-  {
-    'match': '\\.(warn|info|log|error|time|timeEnd|assert)\\b'
-    'name': 'support.function.js.firebug'
   }
   {
     'match': '\\b((0(x|X)[0-9a-fA-F]+)|([0-9]+(\\.[0-9]+)?))\\b'
@@ -410,20 +251,27 @@
     'match': '\\A#!.*$'
     'name': 'comment.line.shebang.js'
   }
+  {
+    'begin': '\\?'
+    'end': ':'
+    'name': 'meta.ternary-if.js'
+    'patterns': [
+      {
+        'include': '$self'
+      }
+    ]
+  }
 ]
 'repository':
   'function-params':
     'patterns': [
       {
-        'begin': '(?![\\s,)])'
+        'begin': '(?=[$_a-zA-Z])'
         'end': '(?=[,)])'
         'patterns': [
           {
             'match': '\\G[$_a-zA-Z][$_a-zA-Z0-9]*'
             'name': 'variable.parameter.function.js'
-          }
-          {
-            'include': '$self'
           }
         ]
       }
